@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+::selection{
+    background-color: rgba($color: #000000, $alpha: 0.00);
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & p{
+        font-size: 12px;
+        text-align: center;
+        max-width: 300px;
+        font-weight: 100;
+    }
+}
+
+*{
+    font-family: 'Anton', sans-serif;
+    font-size: 24px;
+}
+
+.contenedor{
+    display: grid;
+    grid-template-areas: 
+    "visor visor visor tecla10"
+    "tecla1 tecla2 tecla3 tecla12"
+    "tecla4 tecla5 tecla6 tecla13"
+    "tecla7 tecla8 tecla9 tecla14"
+    "tecla16 tecla0 tecla11 tecla15";
+    grid-auto-rows: 65px 65px 65px 65px 65px 65px ;
+    background-color: #475158;
+    width: (65*4)px;
+    height: (65*5)px;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border: black 1px solid;
+}
+
+div.visor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-content: flex-end;
+    justify-content:flex-start;
+    padding-right: 10px;
+    grid-area: visor;
+    border-radius: 4px;
+    background-color: aliceblue;
+    height: 65px;
+    border: black 1px solid;
+
+    & span.anterior{
+        font-size: 16px;
+        color: rgba($color: #000000, $alpha: 0.7);
+        padding-top: 5px;
+    }
+}
+
+@for $i from 0 to 17 {
+    div.tecla#{$i}{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        grid-area: tecla#{$i};
+        width: 65px;
+        height: 65px;
+        background-color: black;
+        color: whitesmoke;
+        border-radius: 4px;
+        border: black 1px solid;
+    }
+}
+
+@for $i from 0 to 10 {
+    div.tecla#{$i}:hover{
+        cursor: pointer;
+        background-color: aliceblue;
+        color: black;
+    }
+}
+
+@for $i from 0 to 10 {
+    div.tecla#{$i}:active{
+        cursor: pointer;
+        background-color: rgba(255, 115, 0, 0.7);
+    }
+}
+
+div.tecla10{
+    cursor: pointer;
+    background-color: rgb(190, 53, 53);
+    color: whitesmoke;
+    border: black 1px solid;
+}
+
+div.tecla10:hover{
+    cursor: pointer;
+    background-color: rgb(138, 11, 11);
+    color: whitesmoke;
+}
+
+div.tecla10:active{
+    cursor: pointer;
+    background-color: rgb(187, 91, 91);
+    color: whitesmoke;
+}
+
+@for $i from 11 to 17 {
+    div.tecla#{$i}{
+        cursor: pointer;
+        background-color: rgb(137, 85, 185);
+        color: whitesmoke;
+        border: black 1px solid;
+    }
+}
+
+@for $i from 11 to 17 {
+    div.tecla#{$i}:hover{
+        cursor: pointer;
+        background-color: rgb(71, 31, 109);
+        color: whitesmoke;
+    }
+}
+
+@for $i from 11 to 17 {
+    div.tecla#{$i}:active{
+        cursor: pointer;
+        background-color: rgba(197, 136, 247, 0.7);
+    }
+}
+
+div.tecla16{
+    cursor: pointer;
+    background-color: black;
+    color: whitesmoke;
+    border: black 1px solid;
+}
+
+div.tecla16:hover{
+    cursor: pointer;
+    background-color: aliceblue;
+    color: black;
+}
+
+div.tecla16:active{
+    cursor: pointer;
+    background-color: rgba(255, 115, 0, 0.7);
+    color: whitesmoke;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1>Calculadora simple</h1>
+    <p>Realiza operaciones simples. Primero se deben ingresar un numero, despues un signo. Se sigue con el segundo numero y se obtiene el resultado mediante el igual. La operacion quedara visible en la parte superior.</p>
+    <div class="contenedor">
+        <div class="visor">
+            <span class="anterior" id="resultadoAnterior">Resultado anterior</span>
+            <span id="resultado">Resultado</span>
+        </div>
+        <div class="tecla tecla0" onclick="ponerNumeros(0)">0</div>
+        <div class="tecla tecla1" onclick="ponerNumeros(1)">1</div>
+        <div class="tecla tecla2" onclick="ponerNumeros(2)">2</div>
+        <div class="tecla tecla3" onclick="ponerNumeros(3)">3</div>
+        <div class="tecla tecla4" onclick="ponerNumeros(4)">4</div>
+        <div class="tecla tecla5" onclick="ponerNumeros(5)">5</div>
+        <div class="tecla tecla6" onclick="ponerNumeros(6)">6</div>
+        <div class="tecla tecla7" onclick="ponerNumeros(7)">7</div>
+        <div class="tecla tecla8" onclick="ponerNumeros(8)">8</div>
+        <div class="tecla tecla9" onclick="ponerNumeros(9)">9</div>
+        <div class="tecla tecla10" onclick="[getElementById('resultado').innerHTML = ''],[getElementById('resultadoAnterior').innerHTML = '']",>C</div>
+        <div class="tecla tecla11" onclick="igual()">=</div>
+        <div class="tecla tecla12" onclick="operation('suma')">+</div>
+        <div class="tecla tecla13" onclick="operation('resta')">-</div>
+        <div class="tecla tecla14" onclick="operation('multiplicar')">x</div>
+        <div class="tecla tecla15" onclick="operation('dividir')">/</div>
+        <div class="tecla tecla16" onclick="ponerNumeros('.')">,</div>
+    </div>
+
+    <script>
+        function ponerNumeros(element) {
+            if ((document.getElementById('resultado').innerHTML == 'Resultado') ||(document.getElementById('resultado').innerHTML == '')) {
+                document.getElementById('resultado').innerHTML = element;
+            } else {
+                document.getElementById('resultado').innerHTML += element;
+            }
+        }
+
+        let valor1 = 0
+        let operacion = ''
+
+        function operation(elemento){
+            valor1 = document.getElementById('resultado').innerHTML;
+            operacion = elemento;
+            document.getElementById('resultado').innerHTML = '';
+        }
+
+        function igual(){
+            if (operacion == "suma") {
+                document.getElementById('resultadoAnterior').innerHTML = valor1 + " + " + document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = parseFloat(document.getElementById('resultado').innerHTML,10) + parseFloat(valor1, 10);
+            } else if (operacion == "resta") {
+                document.getElementById('resultadoAnterior').innerHTML = valor1 + " - " + document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = parseFloat(valor1, 10) - parseFloat(document.getElementById('resultado').innerHTML,10);
+            } else if (operacion == "multiplicar") {
+                document.getElementById('resultadoAnterior').innerHTML = valor1 + " x " + document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = parseFloat(valor1, 10) * parseFloat(document.getElementById('resultado').innerHTML,10);
+            } else if (operacion == "dividir") {
+                document.getElementById('resultadoAnterior').innerHTML = valor1 + " / " + document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = parseFloat(valor1, 10) / parseFloat(document.getElementById('resultado').innerHTML,10);
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
