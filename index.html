@@ -25,7 +25,7 @@
         <div class="tecla tecla7" onclick="ponerNumeros(7)">7</div>
         <div class="tecla tecla8" onclick="ponerNumeros(8)">8</div>
         <div class="tecla tecla9" onclick="ponerNumeros(9)">9</div>
-        <div class="tecla tecla10" onclick="[getElementById('resultado').innerHTML = ''],[getElementById('resultadoAnterior').innerHTML = '']",>C</div>
+        <div class="tecla tecla10" onclick="[getElementById('resultado').innerHTML = ''],[getElementById('resultadoAnterior').innerHTML = ''],[valor1=0]",>C</div>
         <div class="tecla tecla11" onclick="igual()">=</div>
         <div class="tecla tecla12" onclick="operation('suma')">+</div>
         <div class="tecla tecla13" onclick="operation('resta')">-</div>
@@ -35,11 +35,19 @@
     </div>
 
     <script>
+
+        let intermedio = 0
+
         function ponerNumeros(element) {
-            if ((document.getElementById('resultado').innerHTML == 'Resultado') ||(document.getElementById('resultado').innerHTML == '')) {
-                document.getElementById('resultado').innerHTML = element;
-            } else {
+            if (intermedio == 0){
+                if ((document.getElementById('resultado').innerHTML == 'Resultado') ||(document.getElementById('resultado').innerHTML == '')) {
+                    document.getElementById('resultado').innerHTML = element;
+                } else {
                 document.getElementById('resultado').innerHTML += element;
+                }
+            } else {
+                document.getElementById('resultado').innerHTML = element;
+                intermedio = 0;
             }
         }
 
@@ -47,27 +55,88 @@
         let operacion = ''
 
         function operation(elemento){
-            valor1 = document.getElementById('resultado').innerHTML;
-            operacion = elemento;
-            document.getElementById('resultado').innerHTML = '';
+            if (valor1 != 0){
+                igual();
+                valor1 = document.getElementById('resultado').innerHTML;
+                operacion = elemento;
+            } else {
+                valor1 = document.getElementById('resultado').innerHTML;
+                operacion = elemento;
+                document.getElementById('resultado').innerHTML = '';
+            }
         }
 
         function igual(){
             if (operacion == "suma") {
                 document.getElementById('resultadoAnterior').innerHTML = valor1 + " + " + document.getElementById('resultado').innerHTML;
                 document.getElementById('resultado').innerHTML = parseFloat(document.getElementById('resultado').innerHTML,10) + parseFloat(valor1, 10);
+                valor1 = 0;
+                intermedio = 1;
             } else if (operacion == "resta") {
                 document.getElementById('resultadoAnterior').innerHTML = valor1 + " - " + document.getElementById('resultado').innerHTML;
                 document.getElementById('resultado').innerHTML = parseFloat(valor1, 10) - parseFloat(document.getElementById('resultado').innerHTML,10);
+                valor1 = 0;
+                intermedio = 1;
             } else if (operacion == "multiplicar") {
                 document.getElementById('resultadoAnterior').innerHTML = valor1 + " x " + document.getElementById('resultado').innerHTML;
                 document.getElementById('resultado').innerHTML = parseFloat(valor1, 10) * parseFloat(document.getElementById('resultado').innerHTML,10);
+                valor1 = 0;
+                intermedio = 1;
             } else if (operacion == "dividir") {
                 document.getElementById('resultadoAnterior').innerHTML = valor1 + " / " + document.getElementById('resultado').innerHTML;
                 document.getElementById('resultado').innerHTML = parseFloat(valor1, 10) / parseFloat(document.getElementById('resultado').innerHTML,10);
+                valor1 = 0;
+                intermedio = 1;
             }
         }
+
+        function clicked (tecla) {
+            if (intermedio == 0){
+                if ((document.getElementById('resultado').innerHTML == 'Resultado') ||(document.getElementById('resultado').innerHTML == '')) {
+                    document.getElementById('resultado').innerHTML = tecla;
+                } else {
+                    document.getElementById('resultado').innerHTML += tecla;
+                }
+            } else {
+                document.getElementById('resultado').innerHTML = tecla;
+                intermedio = 0;
+            }
+        }
+
+        let listaTeclas = {'0':48 , '1':49, '2':50 , '3':51 , '4':52 , '5':53 , '6':54 , '7':55 , '9':57}
         
+        document.onkeydown = function (e) {
+            var keyCode = e.keyCode;
+            for (let index = 0; index < Object.keys(listaTeclas).length; index++) {
+                
+                if(keyCode == listaTeclas[`${index}`]) {
+                    clicked(`${index}`);
+                }
+            }
+
+            if(keyCode == 16){
+                testigo = 1;
+            }
+
+            if (keyCode == 8){
+                let cadena = document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = cadena.substring(0,cadena.length -1);
+            } else if (keyCode == 187 && testigo == 0){
+                igual();
+            } else if (keyCode == 189){
+                operation('resta');
+            } else if (keyCode == 191){ 
+                operation('dividir');
+            } else if (keyCode == 187 && testigo == 1){
+                operation('suma');
+                testigo = 0;
+            } else if (keyCode == 56 && testigo == 0){
+                clicked('8')
+            } else if (keyCode == 56 && testigo == 1){
+                operation('multiplicar');
+                testigo = 0;
+            }
+        };
 
     </script>
 </body>
